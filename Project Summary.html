@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Ecosystem Security Analysis - Project Showcase</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #00d4ff;
+            --secondary-color: #0a192f;
+            --text-color: #8892b0;
+            --heading-color: #ccd6f6;
+            --accent-color: #64ffda;
+            --card-bg: #112240;
+            --warning-color: #ffa726;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(10, 25, 47, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 5%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--primary-color);
+        }
+
+        /* Header */
+        .project-header {
+            padding: 8rem 5% 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .project-header h1 {
+            font-size: 2.8rem;
+            color: var(--heading-color);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .project-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            background-color: rgba(100, 255, 218, 0.1);
+            color: var(--accent-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 2rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .content-section h2 {
+            font-size: 2rem;
+            color: var(--heading-color);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .content-section h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 80%;
+            background: var(--accent-color);
+        }
+
+        /* Goals Section */
+        .goals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .goal-card {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-top: 3px solid var(--accent-color);
+        }
+
+        .goal-card h3 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .goal-card ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .goal-card li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .goal-card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+
+        /* Architecture Diagram */
+        .architecture-section {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 3rem;
+        }
+
+        .flow-diagram {
+            background: linear-gradient(135deg, rgba(100, 255, 218, 0.05), rgba(0, 212, 255, 0.05));
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            margin-top: 1.5rem;
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background-color: rgba(10, 25, 47, 0.5);
+            border-radius: 5px;
+        }
+
+        .flow-arrow {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            margin: 0 1rem;
+        }
+
+        .flow-label {
+            color: var(--heading-color);
+            font-weight: 600;
+        }
+
+        /* Tooling Inventory */
+        .tooling-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .tool-category {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .tool-category h4 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .tool-category ul {
+            margin-left: 1.5rem;
+        }
+
+        .tool-category li {
+            margin-bottom: 0.4rem;
+        }
+
+        /* Operational Flows */
+        .flow-cards {
+            display: grid;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .flow-card {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 5px solid var(--warning-color);
+        }
+
+        .flow-card h3 {
+            color: var(--warning-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .flow-section {
+            margin: 1rem 0;
+        }
+
+        .flow-section h5 {
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .flow-section ul {
+            margin-left: 1.5rem;
+        }
+
+        /* Threat Matrix */
+        .threat-matrix {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 3rem;
+        }
+
+        .threat-row {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 1rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background-color: rgba(255, 167, 38, 0.05);
+            border-radius: 5px;
+            border-left: 3px solid var(--warning-color);
+        }
+
+        .threat-name {
+            color: var(--warning-color);
+            font-weight: 600;
+        }
+
+        .threat-defense {
+            color: var(--text-color);
+        }
+
+        /* Metrics Dashboard */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .metric-card {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            border-top: 3px solid var(--accent-color);
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+
+        /* Lessons Learned */
+        .lessons-section {
+            background: linear-gradient(135deg, rgba(100, 255, 218, 0.03), rgba(0, 212, 255, 0.03));
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 3rem;
+        }
+
+        .lesson-item {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background-color: var(--card-bg);
+            border-left: 4px solid var(--accent-color);
+            border-radius: 5px;
+        }
+
+        .lesson-item strong {
+            color: var(--heading-color);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Roadmap */
+        .roadmap-section {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 3rem;
+        }
+
+        .roadmap-track {
+            margin-bottom: 1.5rem;
+        }
+
+        .roadmap-track h4 {
+            color: var(--accent-color);
+            margin-bottom: 0.8rem;
+        }
+
+        .roadmap-track ul {
+            margin-left: 1.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .project-header h1 {
+                font-size: 2rem;
+            }
+
+            .threat-row {
+                grid-template-columns: 1fr;
+            }
+		/* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: rgba(10, 25, 47, 0.95);
+            color: var(--text-color);
+			}
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-content">
+            <a href="Cyber Homepage draft.html" class="back-link">← Back to Portfolio</a>
+        </div>
+    </nav>
+
+    <!-- Project Header -->
+    <div class="project-header">
+        <h1>Cross-Stack Crypto Ops: Wallet & Ecosystem Security</h1>
+        <p class="project-subtitle">
+            Daily, real-capital operations across CEXs, DEXs, bridges, and multiple networks—documented with on-chain proof and privacy-safe evidence. This project focuses on approvals hygiene, phishing and address-poisoning defenses, 
+			bridge risk checks, and chargeback/AML awareness to mirror the safety standards expected at crypto-native companies.
+        </p>
+        <div class="badges">
+            <span class="badge">CEX Ops</span>
+            <span class="badge">DEX/LP</span>
+            <span class="badge">Wallet Ops</span>
+            <span class="badge">On/Off-Ramps</span>
+            <span class="badge">Chain Hopping</span>
+            <span class="badge">Compliance & Tax</span>
+            <span class="badge">Risk Management</span>
+        </div>
+    </div>
+
+    <!-- Goals & What's Unique -->
+    <div class="content-section">
+        <h2>Project Goals & Unique Aspects</h2>
+        <div class="goals-grid">
+            <div class="goal-card">
+                <h3>Career-Aligned Goals</h3>
+                <ul>
+                    <li>Prepare for security roles at crypto-native companies</li>
+                    <li>Build operational fluency across the DeFi stack</li>
+                    <li>Develop customer-safety mindset</li>
+                    <li>Gain fraud/risk awareness through hands-on experience</li>
+                </ul>
+            </div>
+
+            <div class="goal-card">
+                <h3>What Makes This Unique</h3>
+                <ul>
+                    <li>Real capital deployment ($20k personal funds)</li>
+                    <li>Daily operational experience</li>
+                    <li>Cross-stack exposure: CEX ↔ Self-Custody ↔ DEX ↔ LP ↔ Tax</li>
+                    <li>On-chain verifiable transactions</li>
+                </ul>
+            </div>
+
+            <div class="goal-card">
+                <h3>Security Focus Areas</h3>
+                <ul>
+                    <li>Approvals hygiene and spend limits</li>
+                    <li>Phishing resistance protocols</li>
+                    <li>Address-poisoning defenses</li>
+                    <li>Bridge risk assessment</li>
+                    <li>Chargeback/AML awareness</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Architecture Flow -->
+    <div class="content-section">
+        <h2>System Architecture & Flow</h2>
+        <div class="architecture-section">
+            <p style="margin-bottom: 1.5rem;">
+                Complete journey from fiat to crypto and back, with security checkpoints at every custody transfer:
+            </p>
+            <div class="flow-diagram">
+                <div class="flow-step">
+                    <span class="flow-label">Fiat (Bank Account)</span>
+                    <span class="flow-arrow">→</span>
+                    <span class="flow-label">CEX (Coinbase/Gemini)</span>
+                    <span style="color: var(--warning-color); margin-left: 1rem; font-size: 0.85rem;">⚠️ KYC/AML checkpoint</span>
+                </div>
+                <div class="flow-step">
+                    <span class="flow-label">CEX</span>
+                    <span class="flow-arrow">→</span>
+                    <span class="flow-label">Self-Custody (Hardware/Software Wallets)</span>
+                    <span style="color: var(--warning-color); margin-left: 1rem; font-size: 0.85rem;">⚠️ Address whitelist + test dust</span>
+                </div>
+                <div class="flow-step">
+                    <span class="flow-label">Self-Custody</span>
+                    <span class="flow-arrow">→</span>
+                    <span class="flow-label">DEX/Routers (Uniswap, Jupiter, Raydium)</span>
+                    <span style="color: var(--warning-color); margin-left: 1rem; font-size: 0.85rem;">⚠️ Token approval + slippage</span>
+                </div>
+                <div class="flow-step">
+                    <span class="flow-label">DEX</span>
+                    <span class="flow-arrow">→</span>
+                    <span class="flow-label">Liquidity Pools (Toros)</span>
+                    <span style="color: var(--warning-color); margin-left: 1rem; font-size: 0.85rem;">⚠️ Impermanent loss risk</span>
+                </div>
+                <div class="flow-step">
+                    <span class="flow-label">LP/DEX</span>
+                    <span class="flow-arrow">→</span>
+                    <span class="flow-label">Cross-Chain Bridges</span>
+                    <span style="color: var(--warning-color); margin-left: 1rem; font-size: 0.85rem;">⚠️ Official bridge verification</span>
+                </div>
+                <div class="flow-step">
+                    <span class="flow-label">All Activities</span>
+                    <span class="flow-arrow">→</span>
+                    <span class="flow-label">Tracking (Etherscan, CoinGecko, CryptoTaxCalculator)</span>
+                    <span style="color: var(--accent-color); margin-left: 1rem; font-size: 0.85rem;">✓ Tax compliance</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tooling Inventory -->
+    <div class="content-section">
+        <h2>Tooling Inventory</h2>
+        <div class="tooling-grid">
+            <div class="tool-category">
+                <h4>Centralized Exchanges (CEX)</h4>
+                <ul>
+                    <li>Coinbase </li>
+                    <li>Gemini </li>
+                </ul>
+            </div>
+
+            <div class="tool-category">
+                <h4>DEXs & Routers</h4>
+                <ul>
+                    <li>Uniswap</li>
+                    <li>Jupiter</li>
+                    <li>Raydium</li>
+                    <li>Bitunix</li>
+                </ul>
+            </div>
+
+            <div class="tool-category">
+                <h4>Software Wallets</h4>
+                <ul>
+                    <li>MetaMask</li>
+                    <li>Phantom</li>
+                    <li>Uniswap Extension</li>
+                    <li>Slush</li>
+                    <li>Rabby</li>
+                </ul>
+            </div>
+
+            <div class="tool-category">
+                <h4>Hardware Wallets</h4>
+                <ul>
+                    <li>Trezor (cold storage)</li>
+                </ul>
+            </div>
+
+            <div class="tool-category">
+                <h4>Explorers & Analytics</h4>
+                <ul>
+                    <li>Etherscan</li>
+                    <li>CoinGecko (portfolio tracking)</li>
+                    <li>CryptoTaxCalculator (tax reporting)</li>
+                </ul>
+            </div>
+
+            <div class="tool-category">
+                <h4>LP Platforms</h4>
+                <ul>
+                    <li>Toros Finance</li>
+                    <li>Ongoing discovery of new platforms</li>
+                </ul>
+            </div>
+
+            <div class="tool-category">
+                <h4>Networks Explored</h4>
+                <ul>
+                    <li>Ethereum (ERC-20)</li>
+                    <li>Polygon</li>
+                    <li>Base</li>
+                    <li>Arbitrum</li>
+                    <li>Solana</li>
+                    <li>BNB Smart Chain</li>
+                    <li>+ Many more L2s</li>
+                </ul>
+            </div>
+
+            <div class="tool-category">
+                <h4>Security Practices</h4>
+                <ul>
+                    <li>2FA/MFA on all CEX accounts</li>
+                    <li>Address whitelisting</li>
+                    <li>Hardware signing (high-value)</li>
+                    <li>Approval revocation protocols</li>
+                    <li>Phishing/poisoning checks</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Operational Flows -->
+    <div class="content-section">
+        <h2>Operational Security Flows</h2>
+        <div class="flow-cards">
+            <!-- Flow 1 -->
+            <div class="flow-card">
+                <h3>5.1 On-Ramp → Self-Custody (CEX Withdrawal)</h3>
+                <div class="flow-section">
+                    <h5>Objective:</h5>
+                    <p>Buy on Coinbase/Gemini, withdraw to hardware wallet</p>
+                </div>
+                <div class="flow-section">
+                    <h5>Risk Controls:</h5>
+                    <ul>
+                        <li>Address book/whitelist verification</li>
+                        <li>Test with dust amount first</li>
+                        <li>Confirm full address (not just first/last chars)</li>
+                        <li>Verify correct network (ERC-20 vs. Base)</li>
+                    </ul>
+                </div>
+                <div class="flow-section">
+                    <h5>Artifacts:</h5>
+                    <p>On-chain withdrawal transactions, whitelist documentation</p>
+                </div>
+            </div>
+
+            <!-- Flow 2 -->
+            <div class="flow-card">
+                <h3>5.2 Self-Custody → DEX Swap (Price/Slippage Discipline)</h3>
+                <div class="flow-section">
+                    <h5>Objective:</h5>
+                    <p>Swap tokens on Uniswap/Jupiter with slippage caps</p>
+                </div>
+                <div class="flow-section">
+                    <h5>Risk Controls:</h5>
+                    <ul>
+                        <li>Verify token contract address</li>
+                        <li>Check liquidity depth before swap</li>
+                        <li>Simulate quote vs. execution price</li>
+                        <li>MEV awareness (use limit orders/routers)</li>
+                    </ul>
+                </div>
+                <div class="flow-section">
+                    <h5>Artifacts:</h5>
+                    <p>Swap transactions, slippage logs, approval transactions</p>
+                </div>
+            </div>
+
+            <!-- Flow 3 -->
+            <div class="flow-card">
+                <h3>5.3 Provide Liquidity (LP on Toros)</h3>
+                <div class="flow-section">
+                    <h5>Objective:</h5>
+                    <p>Supply LP, capture fees/APR, then exit</p>
+                </div>
+                <div class="flow-section">
+                    <h5>Risk Controls:</h5>
+                    <ul>
+                        <li>Document impermanent loss calculations</li>
+                        <li>Verify realistic fee/APR claims</li>
+                        <li>Set approval scope with spend limits</li>
+                        <li>Test remove-liquidity flow before large deposits</li>
+                    </ul>
+                </div>
+                <div class="flow-section">
+                    <h5>Artifacts:</h5>
+                    <p>LP position tracking, fee earnings, IL calculations</p>
+                </div>
+            </div>
+
+            <!-- Flow 4 -->
+            <div class="flow-card">
+                <h3>5.4 Bridge / Chain Hop (Base/Arbitrum/Polygon)</h3>
+                <div class="flow-section">
+                    <h5>Objective:</h5>
+                    <p>Move funds cross-chain to optimize fees or access new DeFi protocols</p>
+                </div>
+                <div class="flow-section">
+                    <h5>Risk Controls:</h5>
+                    <ul>
+                        <li>Use official bridge allow-list only</li>
+                        <li>Verify RPC endpoint trust</li>
+                        <li>Confirm destination chain address format</li>
+                        <li>Post-bridge test spend to confirm receipt</li>
+                    </ul>
+                </div>
+                <div class="flow-section">
+                    <h5>Artifacts:</h5>
+                    <p>Bridge transaction hashes, cross-chain verification</p>
+                </div>
+            </div>
+
+            <!-- Flow 5 -->
+            <div class="flow-card">
+                <h3>5.5 Off-Ramp to Fiat (CEX Deposit & Withdrawal)</h3>
+                <div class="flow-section">
+                    <h5>Objective:</h5>
+                    <p>Realize profits or rebalance portfolio to fiat</p>
+                </div>
+                <div class="flow-section">
+                    <h5>Risk Controls:</h5>
+                    <ul>
+                        <li>Correct memo/tag where applicable</li>
+                        <li>Verify KYC/withdrawal limits</li>
+                        <li>Confirm expected settlement time</li>
+                        <li>Document for tax reporting</li>
+                    </ul>
+                </div>
+                <div class="flow-section">
+                    <h5>Artifacts:</h5>
+                    <p>Bank statements, CEX transaction history, tax reports</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Threat Matrix -->
+    <div class="content-section">
+        <h2>Threat Matrix & Defenses</h2>
+        <div class="threat-matrix">
+            <div class="threat-row">
+                <div class="threat-name">Address Poisoning</div>
+                <div class="threat-defense">Whitelists + full address verification + similarity alerts + test transactions</div>
+            </div>
+            <div class="threat-row">
+                <div class="threat-name">Fake Approvals</div>
+                <div class="threat-defense">Hardware signing + approval-spend caps + regular revocation audits</div>
+            </div>
+            <div class="threat-row">
+                <div class="threat-name">Dusting Attacks</div>
+                <div class="threat-defense">Ignore zero-value transfers + filter spam tokens in wallet UI</div>
+            </div>
+            <div class="threat-row">
+                <div class="threat-name">Fake Token Tickers</div>
+                <div class="threat-defense">Verify contract address on Etherscan + check liquidity depth</div>
+            </div>
+            <div class="threat-row">
+                <div class="threat-name">Bridge Spoofing</div>
+                <div class="threat-defense">Official bridge allow-list + RPC trust verification + community verification</div>
+            </div>
+            <div class="threat-row">
+                <div class="threat-name">Clipboard Malware</div>
+                <div class="threat-defense">Manual address verification + QR code scanning + hardware wallet confirmation</div>
+            </div>
+        </div>
+
+        <div style="background-color: rgba(255, 167, 38, 0.1); padding: 1.5rem; border-radius: 8px; margin-top: 2rem; border-left: 4px solid var(--warning-color);">
+            <strong style="color: var(--warning-color); display: block; margin-bottom: 1rem;">Incident Response Playbook:</strong>
+            <p>"If anomaly detected → freeze operations, revoke approvals, rotate RPC endpoints, rotate addresses, re-verify all destinations, document incident for analysis."</p>
+        </div>
+    </div>
+
+    <!-- Metrics & KPIs -->
+    <div class="content-section">
+        <h2>Project Metrics & KPIs</h2>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-value">$20k</div>
+                <div class="metric-label">Capital Deployed</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">8+</div>
+                <div class="metric-label">Networks Explored</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">15+</div>
+                <div class="metric-label">Tools Used</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">100+</div>
+                <div class="metric-label">Transactions Logged</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">0</div>
+                <div class="metric-label">Security Incidents</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">5</div>
+                <div class="metric-label">Operational Flows Mastered</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lessons Learned -->
+    <div class="content-section">
+        <h2>Lessons Learned & Security Takeaways</h2>
+        <div class="lessons-section">
+            <h3 style="color: var(--heading-color); margin-bottom: 1.5rem;">Top 5 Gotchas Encountered:</h3>
+            
+            <div class="lesson-item">
+                <strong>1. Wrong Network Selection</strong>
+                <p>Nearly sent ERC-20 USDC to a Solana address. Caught by whitelist pre-check and network mismatch warning.</p>
+            </div>
+
+            <div class="lesson-item">
+                <strong>2. Blind Approval Requests</strong>
+                <p>DEX approval for unlimited token spend. Now enforce approval caps and regular revocation audits.</p>
+            </div>
+
+            <div class="lesson-item">
+                <strong>3. Vanity Address Traps</strong>
+                <p>Address poisoning attempt with near-identical prefix/suffix. Whitelisting protocol prevented loss.</p>
+            </div>
+
+            <div class="lesson-item">
+                <strong>4. Zero-Value Token Spam</strong>
+                <p>Received fake tokens mimicking legitimate ones. Now filter spam tokens and verify contracts.</p>
+            </div>
+
+            <div class="lesson-item">
+                <strong>5. LP Impermanent Loss</strong>
+                <p>Underestimated IL on volatile pairs. Now calculate IL before LP entry and monitor actively.</p>
+            </div>
+
+            <h3 style="color: var(--heading-color); margin: 2rem 0 1.5rem;">Mitigations That Worked:</h3>
+            
+            <ul style="margin-left: 2rem;">
+                <li><strong>Whitelists + Hardware Signing:</strong> Prevented address poisoning and phishing</li>
+                <li><strong>Similarity Alerts:</strong> Custom scripts to flag near-match addresses</li>
+                <li><strong>ERC-20 Zero-Value Filtering:</strong> Mental model to ignore spam tokens</li>
+                
+                <li><strong>Spend Limit Approvals:</strong> Never approve unlimited—always set caps</li>
+            </ul>
+
+            <h3 style="color: var(--heading-color); margin: 2rem 0 1.5rem;">What I'd Automate Next:</h3>
+            
+            <ul style="margin-left: 2rem;">
+				<li><strong>Pre-Sign Simulation:</strong> Wallet plugins showing expected outcomes before signing</li>
+			</ul>
+		</div>
+	</div>	
+	</body>	
+	<!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Angelo Pollari. All rights reserved.</p>
+        <p>Built with passion for cybersecurity research.</p>
+    </footer>
+
+</html>
