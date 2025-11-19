@@ -344,24 +344,24 @@
             color: var(--accent-color);
             font-size: 0.9rem;
             margin-bottom: 0.5rem;
-        }.about-container {
+		}
+        .about-container {
 			display: flex;
-			align-items: center;
+			align-items: flex-start;   /* Aligns the image to the TOP */
 			gap: 2rem;
-			}
+		}
 
+		/* Image sizing */
 		.profile-image {
-			width: 300px;          /* Controls container width */
-			height: 350px;         /* Controls container height */
-			overflow: hidden;      /* Hides excess image */
-			border-radius: 12px;   /* Optional: rounding */
-			}
+			width: 260px;
+			height: auto;
+		}
 
 		.profile-image img {
 			width: 100%;
-			height: 100%;
-			object-fit: cover;     /* Makes image fill container cleanly */
-			border-radius: 12px; 
+			height: auto;
+			border-radius: 12px;
+			object-fit: cover;
 		}
         /* Footer */
         footer {
