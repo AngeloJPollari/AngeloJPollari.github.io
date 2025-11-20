@@ -375,7 +375,719 @@
             background-color: rgba(10, 25, 47, 0.95);
             color: var(--text-color);
 			}
+        /* ========================================
+   MOBILE-RESPONSIVE MEDIA QUERIES
+   FOR CRYPTO PROJECT PAGE
+   Replace the existing @media section with this
+   ======================================== */
+
+/* Tablets and smaller laptops (768px - 1024px) */
+@media (max-width: 1024px) {
+    .project-header {
+        padding: 7rem 4% 2.5rem;
+    }
+
+    .project-header h1 {
+        font-size: 2.4rem;
+    }
+
+    .content-section {
+        padding: 2rem 4%;
+    }
+
+    .goals-grid,
+    .tooling-grid {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+
+    .threat-row {
+        grid-template-columns: 1fr 2fr;
+        gap: 1rem;
+    }
+
+    .metrics-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+}
+
+/* Tablets and larger phones (481px - 768px) */
+@media (max-width: 768px) {
+    /* Navigation */
+    nav {
+        padding: 1rem 3%;
+    }
+
+    .nav-content {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .back-link {
+        font-size: 0.85rem;
+    }
+
+    /* Project Header */
+    .project-header {
+        padding: 6rem 4% 2rem;
+    }
+
+    .project-header h1 {
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+
+    .project-subtitle {
+        font-size: 1.05rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.5;
+    }
+
+    .badges {
+        gap: 0.6rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .badge {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    /* Content Sections */
+    .content-section {
+        padding: 1.5rem 4%;
+    }
+
+    .content-section h2 {
+        font-size: 1.6rem;
+        margin-bottom: 1.2rem;
+        padding-left: 15px;
+    }
+
+    .content-section h2::before {
+        width: 3px;
+    }
+
+    /* Goals Grid */
+    .goals-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+        margin-bottom: 2rem;
+    }
+
+    .goal-card {
+        padding: 1.2rem;
+    }
+
+    .goal-card h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .goal-card li {
+        padding: 0.4rem 0;
+        padding-left: 1.3rem;
+        font-size: 0.95rem;
+    }
+
+    /* Architecture Section */
+    .architecture-section {
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .architecture-section > p {
+        font-size: 0.95rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .flow-diagram {
+        padding: 1.2rem;
+        margin-top: 1.2rem;
+    }
+
+    .flow-step {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0.8rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .flow-arrow {
+        transform: rotate(90deg);
+        margin: 0.5rem 0;
+        align-self: center;
+    }
+
+    .flow-step span[style*="warning"] {
+        margin-left: 0 !important;
+        margin-top: 0.5rem;
+    }
+
+    /* Tooling Grid */
+    .tooling-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+        margin-bottom: 2rem;
+    }
+
+    .tool-category {
+        padding: 1.2rem;
+    }
+
+    .tool-category h4 {
+        font-size: 1.1rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .tool-category ul {
+        margin-left: 1.2rem;
+    }
+
+    .tool-category li {
+        font-size: 0.9rem;
+        margin-bottom: 0.3rem;
+    }
+
+    /* Flow Cards */
+    .flow-cards {
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .flow-card {
+        padding: 1.5rem;
+    }
+
+    .flow-card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .flow-section {
+        margin: 0.8rem 0;
+    }
+
+    .flow-section h5 {
+        font-size: 0.95rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .flow-section p,
+    .flow-section ul {
+        font-size: 0.9rem;
+    }
+
+    .flow-section ul {
+        margin-left: 1.2rem;
+    }
+
+    .flow-section li {
+        margin-bottom: 0.4rem;
+    }
+
+    /* Threat Matrix */
+    .threat-matrix {
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .threat-row {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+        padding: 1rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .threat-name {
+        font-size: 1rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .threat-defense {
+        font-size: 0.9rem;
+    }
+
+    .threat-matrix > div[style*="background-color"] {
+        padding: 1.2rem !important;
+        margin-top: 1.5rem !important;
+    }
+
+    .threat-matrix > div[style*="background-color"] strong {
+        font-size: 1rem !important;
+    }
+
+    .threat-matrix > div[style*="background-color"] p {
+        font-size: 0.9rem !important;
+    }
+
+    /* Metrics Grid */
+    .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .metric-card {
+        padding: 1.2rem;
+    }
+
+    .metric-value {
+        font-size: 2rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .metric-label {
+        font-size: 0.85rem;
+    }
+
+    /* Lessons Learned */
+    .lessons-section {
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .lessons-section h3 {
+        font-size: 1.3rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .lesson-item {
+        padding: 0.8rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .lesson-item strong {
+        font-size: 1rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .lesson-item p {
+        font-size: 0.9rem;
+    }
+
+    .lessons-section ul {
+        margin-left: 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    .lessons-section li {
+        margin-bottom: 0.6rem;
+    }
+
+    /* Footer */
+    footer {
+        padding: 1.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Mobile phones (320px - 480px) */
+@media (max-width: 480px) {
+    /* Navigation */
+    nav {
+        padding: 0.8rem 4%;
+    }
+
+    .back-link {
+        font-size: 0.8rem;
+    }
+
+    /* Project Header */
+    .project-header {
+        padding: 5rem 5% 1.5rem;
+    }
+
+    .project-header h1 {
+        font-size: 1.6rem;
+        line-height: 1.3;
+        margin-bottom: 0.8rem;
+    }
+
+    .project-subtitle {
+        font-size: 0.95rem;
+        margin-bottom: 1.2rem;
+        line-height: 1.5;
+    }
+
+    .badges {
+        gap: 0.5rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .badge {
+        font-size: 0.75rem;
+        padding: 0.35rem 0.7rem;
+    }
+
+    /* Content Sections */
+    .content-section {
+        padding: 1.2rem 5%;
+    }
+
+    .content-section h2 {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+        padding-left: 12px;
+    }
+
+    .content-section h2::before {
+        width: 3px;
+        height: 70%;
+    }
+
+    /* Goals Grid */
+    .goals-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .goal-card {
+        padding: 1rem;
+    }
+
+    .goal-card h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .goal-card li {
+        padding: 0.3rem 0;
+        padding-left: 1.2rem;
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+
+    /* Architecture Section */
+    .architecture-section {
+        padding: 1.2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .architecture-section > p {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+
+    .flow-diagram {
+        padding: 1rem;
+        margin-top: 1rem;
+    }
+
+    .flow-step {
+        padding: 0.6rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .flow-label {
+        font-size: 0.85rem;
+    }
+
+    .flow-arrow {
+        font-size: 1.2rem;
+        margin: 0.4rem 0;
+    }
+
+    .flow-step span[style*="warning"],
+    .flow-step span[style*="accent"] {
+        font-size: 0.75rem !important;
+        margin-left: 0 !important;
+        margin-top: 0.4rem;
+    }
+
+    /* Tooling Grid */
+    .tooling-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .tool-category {
+        padding: 1rem;
+    }
+
+    .tool-category h4 {
+        font-size: 1rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .tool-category ul {
+        margin-left: 1rem;
+        padding-left: 0.5rem;
+    }
+
+    .tool-category li {
+        font-size: 0.85rem;
+        margin-bottom: 0.3rem;
+    }
+
+    /* Flow Cards */
+    .flow-cards {
+        gap: 1.2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .flow-card {
+        padding: 1.2rem;
+    }
+
+    .flow-card h3 {
+        font-size: 1.15rem;
+        margin-bottom: 0.6rem;
+        line-height: 1.3;
+    }
+
+    .flow-section {
+        margin: 0.6rem 0;
+    }
+
+    .flow-section h5 {
+        font-size: 0.9rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .flow-section p {
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+
+    .flow-section ul {
+        margin-left: 1rem;
+        padding-left: 0.5rem;
+        font-size: 0.85rem;
+    }
+
+    .flow-section li {
+        margin-bottom: 0.3rem;
+        line-height: 1.4;
+    }
+
+    /* Threat Matrix */
+    .threat-matrix {
+        padding: 1.2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .threat-row {
+        padding: 0.8rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .threat-name {
+        font-size: 0.95rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .threat-defense {
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+
+    .threat-matrix > div[style*="background-color"] {
+        padding: 1rem !important;
+        margin-top: 1.2rem !important;
+    }
+
+    .threat-matrix > div[style*="background-color"] strong {
+        font-size: 0.95rem !important;
+        margin-bottom: 0.6rem !important;
+    }
+
+    .threat-matrix > div[style*="background-color"] p {
+        font-size: 0.85rem !important;
+        line-height: 1.5;
+    }
+
+    /* Metrics Grid */
+    .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .metric-card {
+        padding: 1rem;
+    }
+
+    .metric-value {
+        font-size: 1.8rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .metric-label {
+        font-size: 0.8rem;
+        line-height: 1.2;
+    }
+
+    /* Lessons Learned */
+    .lessons-section {
+        padding: 1.2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .lessons-section h3 {
+        font-size: 1.15rem;
+        margin-bottom: 1rem;
+    }
+
+    .lesson-item {
+        padding: 0.8rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .lesson-item strong {
+        font-size: 0.95rem;
+        margin-bottom: 0.3rem;
+        line-height: 1.3;
+    }
+
+    .lesson-item p {
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+
+    .lessons-section ul {
+        margin-left: 1.2rem;
+        padding-left: 0.5rem;
+        font-size: 0.85rem;
+    }
+
+    .lessons-section li {
+        margin-bottom: 0.5rem;
+        line-height: 1.4;
+    }
+
+    .lessons-section li strong {
+        display: block;
+        margin-bottom: 0.2rem;
+    }
+
+    /* Footer */
+    footer {
+        padding: 1.2rem;
+        font-size: 0.85rem;
+    }
+
+    footer p {
+        margin-bottom: 0.3rem;
+    }
+}
+
+/* Extra small phones (max 360px) */
+@media (max-width: 360px) {
+    .project-header h1 {
+        font-size: 1.4rem;
+    }
+
+    .project-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .content-section h2 {
+        font-size: 1.3rem;
+    }
+
+    .goal-card h3,
+    .flow-card h3 {
+        font-size: 1rem;
+    }
+
+    .metric-value {
+        font-size: 1.6rem;
+    }
+
+    .metrics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .badge {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.6rem;
+    }
+}
+
+/* Landscape orientation on phones */
+@media (max-height: 600px) and (orientation: landscape) {
+    .project-header {
+        padding: 4rem 5% 1.5rem;
+    }
+
+    .project-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .project-subtitle {
+        font-size: 0.95rem;
+    }
+
+    .content-section {
+        padding: 1.5rem 5%;
+    }
+
+    nav {
+        padding: 0.6rem 3%;
+    }
+
+    .flow-step {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .flow-arrow {
+        transform: rotate(0deg);
+        margin: 0 0.5rem;
+    }
+}
+
+/* Fix for notched phones (iPhone X and similar) */
+@supports (padding: max(0px)) {
+    nav {
+        padding-left: max(1rem, env(safe-area-inset-left));
+        padding-right: max(1rem, env(safe-area-inset-right));
+    }
+
+    .project-header,
+    .content-section {
+        padding-left: max(5%, env(safe-area-inset-left));
+        padding-right: max(5%, env(safe-area-inset-right));
+    }
+}
+
+/* Better touch targets and readability */
+@media (max-width: 768px) {
+    body {
+        font-size: 16px; /* Prevents zoom on mobile inputs */
+    }
+
+    /* Better tap targets */
+    .back-link,
+    .badge {
+        min-height: 36px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Improve list readability */
+    ul {
+        line-height: 1.6;
+    }
+
+    /* Better spacing for cards */
+    .goal-card,
+    .tool-category,
+    .flow-card,
+    .lesson-item {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Stack metrics single column on very small screens */
+    @media (max-width: 380px) {
+        .metrics-grid {
+            grid-template-columns: 1fr;
         }
+    }
+}
     </style>
 </head>
 <body>
