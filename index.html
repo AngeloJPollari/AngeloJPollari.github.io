@@ -203,18 +203,25 @@
             margin-bottom: 1rem;
         }
 
-        .project-image {
-            width: 100%;
-            height: 200px;
-            background-color: rgba(100, 255, 218, 0.05);
-            border-radius: 5px;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-color);
-            font-style: italic;
-        }
+        /* --- FIXED PROJECT IMAGE STYLING --- */
+		.project-image {
+			width: 100%;
+			height: 200px;           /* You can adjust this */
+			background-color: rgba(100, 255, 218, 0.05);
+			border-radius: 5px;
+			margin-bottom: 1rem;
+			overflow: hidden;        /* Keeps image inside the box */
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.project-image img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;       /* Makes the image fit perfectly */
+			border-radius: 5px;
+		}
 
         .tech-stack {
             display: flex;
@@ -438,7 +445,7 @@
         <div class="projects-grid">
             <!-- Project 1: Crypto Wallet Security -->
             <div class="project-card">
-                <div class="project-image">[Screenshot: CEX vs DEX Interface]</div>
+                <div class="project-image"><img src="Cross-Stack-Cover.jpg"></div>
                 <h3>Cross-Stack Crypto Ops: Wallet & Ecosystem Security</h3>
                 <p>
                     Hands-on security analysis across the crypto ecosystem using personal funds ($20k)—covering CEX↔self-custody↔DEX↔LPs↔tax,
