@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Network Infrastructure Design - Project Showcase</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #00d4ff;
+            --secondary-color: #0a192f;
+            --text-color: #8892b0;
+            --heading-color: #ccd6f6;
+            --accent-color: #64ffda;
+            --card-bg: #112240;
+            --warning-color: #ffa726;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(10, 25, 47, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 5%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--primary-color);
+        }
+
+        /* Header */
+        .project-header {
+            padding: 8rem 5% 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .project-header h1 {
+            font-size: 2.8rem;
+            color: var(--heading-color);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .project-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            background-color: rgba(100, 255, 218, 0.1);
+            color: var(--accent-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+        }
+
+        .metadata {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-color);
+            margin-bottom: 2rem;
+        }
+
+        .metadata-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .metadata-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .metadata-label {
+            color: var(--accent-color);
+            font-size: 0.85rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .metadata-value {
+            color: var(--heading-color);
+            font-weight: 600;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: 2px solid var(--accent-color);
+            background: var(--accent-color);
+            color: var(--secondary-color);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            background: transparent;
+            color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-color);
+            color: var(--secondary-color);
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 2rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .content-section h2 {
+            font-size: 2rem;
+            color: var(--heading-color);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .content-section h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 80%;
+            background: var(--accent-color);
+        }
+
+        /* Overview Section */
+        .overview-box {
+            background-color: var(--card-bg);
+            border-left: 5px solid var(--accent-color);
+            padding: 2rem;
+            border-radius: 5px;
+            margin-bottom: 3rem;
+        }
+
+        .overview-box h3 {
+            color: var(--heading-color);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .overview-box ul {
+            margin-left: 2rem;
+            margin-top: 1rem;
+        }
+
+        .overview-box li {
+            margin-bottom: 0.8rem;
+        }
+
+        /* Topology Section */
+        .topology-section {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 3rem;
+        }
+
+        .topology-image {
+            width: 100%;
+            background: linear-gradient(135deg, rgba(100, 255, 218, 0.05), rgba(0, 212, 255, 0.05));
+            border-radius: 8px;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            margin-top: 1.5rem;
+            padding: 1rem;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .topology-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+        }
+
+        /* Architecture Components */
+        .component-grid {
+            display: grid;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .component-card {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 5px solid var(--accent-color);
+        }
+
+        .component-card h3 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .component-card h4 {
+            color: var(--heading-color);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .component-card ul {
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .component-card li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--accent-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            margin-left: 1rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -1.5rem;
+            top: 1.5rem;
+            width: 12px;
+            height: 12px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px var(--secondary-color);
+        }
+
+        .timeline-item h4 {
+            color: var(--accent-color);
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        .timeline-item p {
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item ul {
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Validation Section */
+        .validation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .validation-card {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-top: 3px solid var(--accent-color);
+        }
+
+        .validation-card h4 {
+            color: var(--accent-color);
+            margin-bottom: 0.8rem;
+        }
+
+        .validation-card ul {
+            margin-left: 1.5rem;
+        }
+
+        .validation-card li {
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+        }
+
+        /* Lessons Learned */
+        .lessons-section {
+            background: linear-gradient(135deg, rgba(100, 255, 218, 0.03), rgba(0, 212, 255, 0.03));
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 3rem;
+        }
+
+        .lesson-item {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background-color: var(--card-bg);
+            border-left: 4px solid var(--accent-color);
+            border-radius: 5px;
+        }
+
+        .lesson-item h4 {
+            color: var(--heading-color);
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        .lesson-item p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .skill-category {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .skill-category h4 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background-color: rgba(100, 255, 218, 0.1);
+            color: var(--text-color);
+            padding: 0.4rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+        }
+
+        /* Artifacts Section */
+        .artifacts-section {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 3rem;
+        }
+
+        .artifact-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .artifact-link {
+            background: linear-gradient(135deg, rgba(100, 255, 218, 0.05), rgba(0, 212, 255, 0.05));
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            text-align: center;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: var(--text-color);
+        }
+
+        .artifact-link:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            box-shadow: 0 5px 20px rgba(100, 255, 218, 0.2);
+        }
+
+        .artifact-link h5 {
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: rgba(10, 25, 47, 0.95);
+            color: var(--text-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .project-header h1 {
+                font-size: 2rem;
+            }
+
+            .component-grid,
+            .validation-grid,
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .metadata-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-content">
+            <a href="index.html" class="back-link">← Back to Portfolio</a>
+        </div>
+    </nav>
+
+    <!-- Project Header -->
+    <div class="project-header">
+        <h1>Secure Network Infrastructure Design</h1>
+        <p class="project-subtitle">
+            Designed and implemented a multi-site enterprise network in Cisco Packet Tracer with site-to-site IPsec VPN, 
+            Cisco ASA firewall and DMZ, AAA (TACACS+/RADIUS), centralized monitoring, and secure staff/guest Wi-Fi.
+        </p>
+
+        <div class="badges">
+            <span class="badge">AAA (TACACS+/RADIUS)</span>
+            <span class="badge">IPsec VPN</span>
+            <span class="badge">ASA Firewall</span>
+            <span class="badge">DMZ Segmentation</span>
+            <span class="badge">SNMP & IPS</span>
+            <span class="badge">Wireless LAN Controller</span>
+            <span class="badge">Centralized Logging</span>
+        </div>
+
+        <div class="cta-buttons">
+            <a href="#topology" class="btn">View Full Topology</a>
+            <a href="#" class="btn btn-secondary" download>Download .pkt File</a>
+            <a href="#build-process" class="btn btn-secondary">Read Build Walkthrough</a>
+        </div>
+    </div>
+
+    <!-- Project Overview -->
+    <div class="content-section">
+        <h2>Project Overview</h2>
+        <div class="overview-box">
+            <p>
+                This project simulates a small enterprise network with a headquarters site, a remote site, and an internet-facing perimeter. 
+                I built a layered architecture that includes:
+            </p>
+            <ul>
+                <li><strong>Internal LAN</strong> with multiple switches and VLAN-aware interfaces</li>
+                <li><strong>A routed core</strong> with a main router and a remote router connected via IPsec VPN</li>
+                <li><strong>An ASA firewall</strong> segmenting inside, DMZ, and outside networks</li>
+                <li><strong>Central services</strong> (DHCP, NTP, syslog) for consistent configuration and log correlation</li>
+                <li><strong>AAA using TACACS+ and RADIUS</strong> for device administration</li>
+                <li><strong>A wireless LAN controller</strong> with lightweight access points providing separate staff and guest Wi-Fi</li>
+            </ul>
+            <p style="margin-top: 1rem;">
+                The objective was to design, configure, and validate a secure end-to-end network that demonstrates defense-in-depth 
+                across routing, authentication, perimeter security, monitoring, and wireless access.
+            </p>
+        </div>
+    </div>
+
+    <!-- Network Topology -->
+    <div class="content-section" id="topology">
+        <h2>Network Topology</h2>
+        <div class="topology-section">
+            <p>
+                The lab is organized into three main zones, with each zone mapped to specific IP ranges, security levels, 
+                and firewall rules to enforce segmentation and least privilege.
+            </p>
+            <div class="topology-image">
+                <img src="FullNetwork.jpg" alt="Network Topology Diagram">
+            </div>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #4A90E2;"></div>
+                    <span>Internal LAN (Inside)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #F5A623;"></div>
+                    <span>DMZ</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #7ED321;"></div>
+                    <span>Remote Site (VPN)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #9B9B9B;"></div>
+                    <span>Transit/"Internet"</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Architecture & Security Components -->
+    <div class="content-section">
+        <h2>Architecture & Security Components</h2>
+        <div class="component-grid">
+            <!-- Core LAN & VLAN -->
+            <div class="component-card">
+                <h3>4.1 Core LAN & VLAN Segmentation</h3>
+                <p style="margin-bottom: 1rem;"><strong>Tools Used:</strong> Cisco 3650 Switches, Cisco 4331 Router</p>
+                <ul>
+                    <li>Configured Layer 2 switching with two core switches interconnected via proper crossover cabling</li>
+                    <li>Assigned VLAN 1 management interfaces on switches with static IPs to allow remote management</li>
+                    <li>Set default gateways on switches and PCs pointing to the main router, enabling inter-network routing</li>
+                    <li>Verified connectivity using ICMP (ping) and inspected MAC/ARP tables to confirm proper learning and forwarding</li>
+                </ul>
+            </div>
+
+            <!-- AAA -->
+            <div class="component-card">
+                <h3>4.2 AAA, TACACS+, RADIUS & Device Access</h3>
+                <p style="margin-bottom: 1rem;"><strong>Tools Used:</strong> AAA Server, Cisco 4331 Routers, Cisco 3650 Switches</p>
+                <p>Deployed a dedicated AAA server to centralize authentication for routers and switches.</p>
+                <h4>Configuration:</h4>
+                <ul>
+                    <li>Configured TACACS+ for router R1 and one switch, and RADIUS for another switch to compare behavior</li>
+                    <li>Applied <code>aaa new-model</code> with login authentication via the AAA server (with local backup)</li>
+                    <li>Enable/privileged mode protected by AAA</li>
+                    <li>Created multiple user accounts on the AAA server</li>
+                </ul>
+                <h4>Testing:</h4>
+                <ul>
+                    <li>Tested authentication via Telnet from PCs to switches/routers</li>
+                    <li>Confirmed fallback to local credentials when the AAA server is unavailable</li>
+                </ul>
+                <p style="margin-top: 1rem; font-style: italic; color: var(--text-color);">
+                    <strong>Note:</strong> This project uses centralized AAA for admin logins; it does not implement full multi-factor 
+                    authentication (2FA) in this lab environment.
+                </p>
+            </div>
+
+            <!-- IPsec VPN -->
+            <div class="component-card">
+                <h3>4.3 Site-to-Site IPsec VPN</h3>
+                <p style="margin-bottom: 1rem;"><strong>Tools Used:</strong> Cisco 4331 Routers (R1, R2, R3)</p>
+                <p>Added two additional routers to simulate a remote site connected over an untrusted "service provider" router.</p>
+                <h4>Implementation:</h4>
+                <ul>
+                    <li>Configured IP addressing on multiple gigabit interfaces to create distinct internal and transit networks</li>
+                    <li>Built a site-to-site IPsec VPN between R1 and R3, with R2 acting as an unaware transit router</li>
+                    <li>Defined ACLs specifying "interesting traffic" between the 192.168.1.0/24 and 192.168.2.0/24 LANs</li>
+                </ul>
+                <h4>ISAKMP Phase 1 Configuration:</h4>
+                <ul>
+                    <li>Encryption: AES-256</li>
+                    <li>Authentication: Pre-shared key</li>
+                    <li>DH Group 5 for key exchange</li>
+                </ul>
+                <h4>IPsec Phase 2:</h4>
+                <ul>
+                    <li>Transform sets using ESP-AES-256 and ESP-SHA-HMAC for confidentiality and integrity</li>
+                    <li>Applied crypto map to transit-facing interfaces on both routers</li>
+                </ul>
+                <h4>Verification:</h4>
+                <ul>
+                    <li>Ping between hosts on each LAN through the VPN</li>
+                    <li>Observed that transit router R2 simply forwards encrypted traffic with no payload visibility</li>
+                </ul>
+            </div>
+
+            <!-- ASA Firewall -->
+            <div class="component-card">
+                <h3>4.4 Perimeter Security: ASA Firewall & DMZ</h3>
+                <p style="margin-bottom: 1rem;"><strong>Tools Used:</strong> Cisco ASA 5506-X Firewall</p>
+                <p>Deployed a Cisco ASA 5506-X firewall between the internal LAN, DMZ, and outside network.</p>
+                <h4>Security Zones:</h4>
+                <ul>
+                    <li><strong>Inside (100)</strong> – Trusted internal network</li>
+                    <li><strong>DMZ (50)</strong> – Semi-trusted public services segment</li>
+                    <li><strong>Outside (0)</strong> – Untrusted external network</li>
+                </ul>
+                <h4>Configuration:</h4>
+                <ul>
+                    <li>Assigned IP addresses to each ASA interface and enabled them with <code>no shutdown</code></li>
+                    <li>Created network objects and NAT rules to allow inside and DMZ hosts to reach the outside network</li>
+                    <li>Built ACLs to implement policy:
+                        <ul style="margin-left: 1.5rem; margin-top: 0.3rem;">
+                            <li>Permit ICMP for testing/monitoring</li>
+                            <li>Permit HTTP (80) and HTTPS (443) outbound</li>
+                            <li>Explicitly deny FTP (21) to demonstrate blocking of legacy protocols</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Monitoring & Logging -->
+            <div class="component-card">
+                <h3>4.5 Monitoring & Logging: Syslog, NTP, SNMP, and IPS</h3>
+                <p style="margin-bottom: 1rem;"><strong>Tools Used:</strong> Syslog/NTP Server, SNMP, IOS IPS on Cisco 4331 Routers</p>
+                <h4>Syslog & NTP Server:</h4>
+                <ul>
+                    <li>Configured dedicated syslog & NTP server</li>
+                    <li>Enabled syslog service and pointed routers/switches to this host as logging target</li>
+                    <li>Configured NTP on devices to synchronize clocks for consistent timestamps</li>
+                </ul>
+                <h4>SNMP on R3:</h4>
+                <ul>
+                    <li>Created public (read-only) and private (read-write) community strings</li>
+                    <li>Used MIB Browser to query interface stats, uptime, and system info</li>
+                </ul>
+                <h4>IOS IPS (Intrusion Prevention System):</h4>
+                <ul>
+                    <li>Created IPS directory in flash and pointed IPS config there</li>
+                    <li>Enabled "basic" signature category and retired full "all" set for performance balance</li>
+                    <li>Applied IPS rule to traffic on LAN-facing interface (<code>ip ips rule 1 out</code>)</li>
+                    <li>Enabled log timestamps with millisecond granularity for alert correlation</li>
+                </ul>
+            </div>
+
+            <!-- DHCP -->
+            <div class="component-card">
+                <h3>4.6 DHCP, Time, and Address Management</h3>
+                <p style="margin-bottom: 1rem;"><strong>Tools Used:</strong> Cisco ASA 5506-X, Cisco 3504 WLC</p>
+                <ul>
+                    <li>Configured DHCP scopes on the ASA firewall for inside and DMZ networks</li>
+                    <li>Set up internal DHCP on the wireless LAN controller for wireless clients, aligned to same subnets</li>
+                    <li>Verified automatic address assignment on all DHCP-enabled segments</li>
+                    <li>Updated diagrams/documentation when static IPs changed</li>
+                </ul>
+            </div>
+
+            <!-- Wireless LAN -->
+            <div class="component-card">
+                <h3>4.7 Wireless LAN Controller & Secure Wi-Fi</h3>
+                <p style="margin-bottom: 1rem;"><strong>Tools Used:</strong> Cisco 3504 Wireless LAN Controller (WLC), Lightweight Access Points</p>
+                <p>Added a Cisco 3504 Wireless LAN Controller (WLC) and two lightweight APs to the inside network.</p>
+                <h4>Configuration:</h4>
+                <ul>
+                    <li>Converted laptops from wired NICs to wireless NICs and enabled DHCP</li>
+                    <li>Configured management interface and connected via HTTPS from wired PC</li>
+                </ul>
+                <h4>WLANs Created:</h4>
+                <ul>
+                    <li><strong>Staff (employee)</strong> – WPA2-PSK with passphrase Cisco123</li>
+                    <li><strong>Guest</strong> – WEP with 40-bit static key (A1B2C3D4D5) to demonstrate weaker legacy configuration</li>
+                </ul>
+                <h4>Verification:</h4>
+                <ul>
+                    <li>Laptops could join Staff and Guest SSIDs and obtain IP addresses via DHCP</li>
+                    <li>Clients fail over between APs when one AP loses power, showing high availability</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Build Process Timeline -->
+    <div class="content-section" id="build-process">
+        <h2>Implementation Timeline</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <h4>Phase 1 – Core Switching & Basic Routing (Lab 1)</h4>
+                <p>
+                    Renamed devices, configured PC and switch IPs, VLAN 1 management interfaces, default gateways, 
+                    and verified reachability via ping, ARP, and MAC address tables.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <h4>Phase 2 – AAA with TACACS+/RADIUS (Lab 2)</h4>
+                <p>
+                    Introduced a centralized AAA server, configured TACACS+ and RADIUS on routers/switches for login 
+                    and enable authentication, and validated centralized admin access over Telnet.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <h4>Phase 3 – Multi-Site Routing & IPsec VPN (Lab 3)</h4>
+                <p>
+                    Added additional routers and LANs, configured static routing and default routes, built an IPsec 
+                    site-to-site VPN with ISAKMP, transform sets, and crypto maps.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <h4>Phase 4 – ASA Firewall, DMZ, NTP, Syslog, DHCP (Lab 4)</h4>
+                <p>
+                    Placed an ASA firewall between inside/DMZ/outside, assigned security levels, configured DHCP on the ASA, 
+                    and set up NTP and syslog services for time sync and logging.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <h4>Phase 5 – SNMP & Intrusion Prevention (Lab 5)</h4>
+                <p>
+                    Enabled SNMP and verified monitoring via MIB browser, set up IOS IPS with basic signatures, 
+                    and created ASA ACLs to control HTTP/HTTPS/FTP traffic.
+                </p>
+            </div>
+
+            <div class="timeline-item">
+                <h4>Phase 6 – Wireless LAN Controller & WLAN Segmentation (Lab 6)</h4>
+                <p>
+                    Integrated a WLC and LWA
