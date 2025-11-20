@@ -400,7 +400,652 @@
             }
 		
 		
-        }
+        }/* ========================================
+   MOBILE-RESPONSIVE MEDIA QUERIES
+   FOR RESEARCH SUMMARY PAGE
+   Replace the existing @media section with this
+   ======================================== */
+
+/* Tablets and smaller laptops (768px - 1024px) */
+@media (max-width: 1024px) {
+    .page-header {
+        padding: 7rem 4% 2.5rem;
+    }
+
+    .page-header h1 {
+        font-size: 2.4rem;
+    }
+
+    .content-section {
+        padding: 2rem 4%;
+    }
+
+    .threat-categories {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .citation-grid {
+        gap: 1rem;
+    }
+}
+
+/* Tablets and larger phones (481px - 768px) */
+@media (max-width: 768px) {
+    /* Navigation */
+    nav {
+        padding: 1rem 3%;
+    }
+
+    .nav-content {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .back-link {
+        font-size: 0.85rem;
+    }
+
+    /* Page Header */
+    .page-header {
+        padding: 6rem 4% 2rem;
+    }
+
+    .page-header h1 {
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+
+    .institution {
+        font-size: 1rem;
+    }
+
+    .author-info {
+        font-size: 0.9rem;
+    }
+
+    .download-btn {
+        width: 100%;
+        text-align: center;
+        padding: 1rem 1.5rem;
+        font-size: 0.95rem;
+    }
+
+    /* Content Sections */
+    .content-section {
+        padding: 1.5rem 4%;
+    }
+
+    .content-section h2 {
+        font-size: 1.6rem;
+        margin-bottom: 1.2rem;
+        padding-left: 15px;
+    }
+
+    .content-section h2::before {
+        width: 3px;
+    }
+
+    /* Abstract */
+    .abstract {
+        padding: 1.5rem;
+        font-size: 1rem;
+        line-height: 1.7;
+        margin-bottom: 2rem;
+    }
+
+    /* TL;DR */
+    .tldr {
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .tldr h3 {
+        font-size: 1.3rem;
+    }
+
+    .tldr li {
+        padding: 0.6rem 0;
+        padding-left: 1.8rem;
+        font-size: 0.95rem;
+    }
+
+    /* Research Question */
+    .research-question {
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .research-question h3 {
+        font-size: 1.3rem;
+        line-height: 1.3;
+    }
+
+    .hypothesis p {
+        padding-left: 1.2rem;
+        font-size: 0.95rem;
+    }
+
+    /* Vulnerability Section */
+    .vulnerability-section {
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .vuln-item {
+        padding: 1rem;
+    }
+
+    .vuln-item strong {
+        font-size: 1rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .vuln-item p {
+        font-size: 0.95rem;
+    }
+
+    /* Threat Landscape */
+    .threat-categories {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+        margin-bottom: 2rem;
+    }
+
+    .threat-card {
+        padding: 1.2rem;
+    }
+
+    .threat-card h4 {
+        font-size: 1.1rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .threat-card ul {
+        margin-left: 1.2rem;
+    }
+
+    .threat-card li {
+        font-size: 0.9rem;
+        margin-bottom: 0.4rem;
+    }
+
+    /* Mitigation Section */
+    .mitigation-section {
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .mitigation-section > p {
+        font-size: 0.95rem;
+    }
+
+    .mitigation-layer {
+        padding: 1rem;
+    }
+
+    .mitigation-layer h5 {
+        font-size: 1rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .mitigation-layer p {
+        font-size: 0.9rem;
+    }
+
+    /* Methodology Badge */
+    .methodology-badge {
+        padding: 1.2rem;
+        margin-bottom: 2rem;
+        text-align: left;
+    }
+
+    .methodology-badge strong {
+        font-size: 1rem;
+    }
+
+    .methodology-badge p {
+        font-size: 0.9rem;
+        margin-top: 0.8rem;
+    }
+
+    /* Diagrams */
+    .diagram-container {
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .diagram-container h3 {
+        font-size: 1.3rem;
+    }
+
+    .diagram-placeholder {
+        min-height: 300px;
+    }
+
+    .diagram-placeholder img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .diagram-caption {
+        font-size: 0.9rem;
+        margin-top: 0.8rem;
+    }
+
+    /* Citations */
+    .citations-section {
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .citations-section > p {
+        font-size: 0.95rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .citation-item {
+        padding: 0.8rem;
+    }
+
+    .citation-item .authors {
+        font-size: 0.95rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .citation-item .title {
+        font-size: 0.9rem;
+    }
+
+    .citation-item .source {
+        font-size: 0.85rem;
+    }
+
+    /* Footer */
+    .footer {
+        padding: 1.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Mobile phones (320px - 480px) */
+@media (max-width: 480px) {
+    /* Navigation */
+    nav {
+        padding: 0.8rem 4%;
+    }
+
+    .back-link {
+        font-size: 0.8rem;
+    }
+
+    /* Page Header */
+    .page-header {
+        padding: 5rem 5% 1.5rem;
+    }
+
+    .page-header h1 {
+        font-size: 1.6rem;
+        line-height: 1.3;
+        margin-bottom: 0.8rem;
+    }
+
+    .institution {
+        font-size: 0.9rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .author-info {
+        font-size: 0.85rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .download-btn {
+        padding: 0.9rem 1.2rem;
+        font-size: 0.9rem;
+    }
+
+    /* Content Sections */
+    .content-section {
+        padding: 1.2rem 5%;
+    }
+
+    .content-section h2 {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+        padding-left: 12px;
+    }
+
+    .content-section h2::before {
+        width: 3px;
+        height: 70%;
+    }
+
+    /* Abstract */
+    .abstract {
+        padding: 1.2rem;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+
+    .abstract p {
+        margin-bottom: 0.8rem;
+    }
+
+    /* TL;DR */
+    .tldr {
+        padding: 1.2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .tldr h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .tldr li {
+        padding: 0.5rem 0;
+        padding-left: 1.5rem;
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+
+    .tldr li::before {
+        font-size: 0.9rem;
+    }
+
+    /* Research Question */
+    .research-question {
+        padding: 1.2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .research-question h3 {
+        font-size: 1.15rem;
+        line-height: 1.4;
+        margin-bottom: 0.8rem;
+    }
+
+    .hypothesis {
+        margin-top: 1rem;
+    }
+
+    .hypothesis p {
+        padding-left: 1rem;
+        font-size: 0.9rem;
+        margin: 0.4rem 0;
+        line-height: 1.5;
+    }
+
+    /* Vulnerability Section */
+    .vulnerability-section {
+        padding: 1.2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .vulnerability-section > p {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+
+    .vuln-list {
+        gap: 0.8rem;
+        margin-top: 1rem;
+    }
+
+    .vuln-item {
+        padding: 0.8rem;
+    }
+
+    .vuln-item strong {
+        font-size: 0.95rem;
+        margin-bottom: 0.4rem;
+        line-height: 1.3;
+    }
+
+    .vuln-item p {
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+
+    /* Threat Landscape */
+    .threat-categories {
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .threat-card {
+        padding: 1rem;
+    }
+
+    .threat-card h4 {
+        font-size: 1rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .threat-card ul {
+        margin-left: 1rem;
+        padding-left: 0.5rem;
+    }
+
+    .threat-card li {
+        font-size: 0.85rem;
+        margin-bottom: 0.4rem;
+        line-height: 1.4;
+    }
+
+    /* Mitigation Section */
+    .mitigation-section {
+        padding: 1.2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .mitigation-section > p {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+
+    .mitigation-layers {
+        gap: 0.8rem;
+        margin-top: 1rem;
+    }
+
+    .mitigation-layer {
+        padding: 0.8rem;
+    }
+
+    .mitigation-layer h5 {
+        font-size: 0.95rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .mitigation-layer p {
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+
+    /* Methodology Badge */
+    .methodology-badge {
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .methodology-badge strong {
+        font-size: 0.95rem;
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    .methodology-badge p {
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+
+    /* Diagrams */
+    .diagrams-section {
+        margin-bottom: 1.5rem;
+    }
+
+    .diagram-container {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .diagram-container h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .diagram-placeholder {
+        min-height: 250px;
+    }
+
+    .diagram-placeholder img {
+        max-width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .diagram-caption {
+        font-size: 0.85rem;
+        margin-top: 0.6rem;
+        padding: 0 0.5rem;
+    }
+
+    /* Citations */
+    .citations-section {
+        padding: 1.2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .citations-section > p {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+
+    .citation-grid {
+        gap: 0.8rem;
+        margin-top: 1rem;
+    }
+
+    .citation-item {
+        padding: 0.8rem;
+    }
+
+    .citation-item .authors {
+        font-size: 0.9rem;
+        margin-bottom: 0.3rem;
+        line-height: 1.3;
+    }
+
+    .citation-item .title {
+        font-size: 0.85rem;
+        margin-bottom: 0.3rem;
+        line-height: 1.4;
+    }
+
+    .citation-item .source {
+        font-size: 0.8rem;
+        line-height: 1.4;
+    }
+
+    /* Footer */
+    .footer {
+        padding: 1.2rem;
+        font-size: 0.85rem;
+    }
+
+    .footer p {
+        margin-bottom: 0.3rem;
+    }
+}
+
+/* Extra small phones (max 360px) */
+@media (max-width: 360px) {
+    .page-header h1 {
+        font-size: 1.4rem;
+    }
+
+    .content-section h2 {
+        font-size: 1.3rem;
+    }
+
+    .tldr h3,
+    .research-question h3,
+    .diagram-container h3 {
+        font-size: 1.1rem;
+    }
+
+    .threat-card h4 {
+        font-size: 0.95rem;
+    }
+
+    .download-btn {
+        font-size: 0.85rem;
+        padding: 0.8rem 1rem;
+    }
+}
+
+/* Landscape orientation on phones */
+@media (max-height: 600px) and (orientation: landscape) {
+    .page-header {
+        padding: 4rem 5% 1.5rem;
+    }
+
+    .page-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .content-section {
+        padding: 1.5rem 5%;
+    }
+
+    nav {
+        padding: 0.6rem 3%;
+    }
+
+    .diagram-placeholder {
+        min-height: 200px;
+    }
+}
+
+/* Fix for notched phones (iPhone X and similar) */
+@supports (padding: max(0px)) {
+    nav {
+        padding-left: max(1rem, env(safe-area-inset-left));
+        padding-right: max(1rem, env(safe-area-inset-right));
+    }
+
+    .page-header,
+    .content-section {
+        padding-left: max(5%, env(safe-area-inset-left));
+        padding-right: max(5%, env(safe-area-inset-right));
+    }
+}
+
+/* Improve readability on all devices */
+@media (max-width: 768px) {
+    body {
+        font-size: 16px; /* Prevents zoom on mobile inputs */
+    }
+
+    /* Better tap targets */
+    .back-link,
+    .download-btn {
+        min-height: 44px; /* Apple's recommended tap target */
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Better spacing for touch interactions */
+    .threat-card,
+    .vuln-item,
+    .mitigation-layer,
+    .citation-item {
+        margin-bottom: 0.8rem;
+    }
+}
     </style>
 </head>
 <body>
