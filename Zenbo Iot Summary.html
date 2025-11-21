@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASUS Zenbo Security Assessment - CCR Lab Project</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #00d4ff;
+            --secondary-color: #0a192f;
+            --text-color: #8892b0;
+            --heading-color: #ccd6f6;
+            --accent-color: #64ffda;
+            --card-bg: #112240;
+            --warning-color: #ffa726;
+            --critical-color: #ff5252;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(10, 25, 47, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 5%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--primary-color);
+        }
+
+        /* Header */
+        .project-header {
+            padding: 8rem 5% 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .project-header h1 {
+            font-size: 2.8rem;
+            color: var(--heading-color);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .project-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            background-color: rgba(100, 255, 218, 0.1);
+            color: var(--accent-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+        }
+
+        .badge.critical {
+            background-color: rgba(255, 82, 82, 0.1);
+            color: var(--critical-color);
+            border: 1px solid rgba(255, 82, 82, 0.2);
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 2rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .content-section h2 {
+            font-size: 2rem;
+            color: var(--heading-color);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .content-section h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 80%;
+            background: var(--accent-color);
+        }
+
+        /* Image Section */
+        .image-section {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+        }
+
+        .image-section h3 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            text-align: center;
+        }
+
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .image-wrapper {
+            background: linear-gradient(135deg, rgba(100, 255, 218, 0.05), rgba(0, 212, 255, 0.05));
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            display: block;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .image-caption {
+            color: var(--text-color);
+            font-size: 0.9rem;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .image-upload-placeholder {
+            background: linear-gradient(135deg, rgba(100, 255, 218, 0.03), rgba(0, 212, 255, 0.03));
+            border: 2px dashed rgba(100, 255, 218, 0.3);
+            border-radius: 8px;
+            padding: 3rem;
+            text-align: center;
+            color: var(--text-color);
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .image-upload-placeholder p {
+            margin: 0;
+        }
+
+        .image-upload-placeholder .icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+        }
+
+        /* Overview Cards */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .overview-card {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-top: 3px solid var(--accent-color);
+        }
+
+        .overview-card h3 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .overview-card ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .overview-card li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .overview-card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+
+        /* Critical Risk Banner */
+        .risk-banner {
+            background: linear-gradient(135deg, rgba(255, 82, 82, 0.15), rgba(255, 167, 38, 0.15));
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 5px solid var(--critical-color);
+            margin-bottom: 3rem;
+        }
+
+        .risk-banner h3 {
+            color: var(--critical-color);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .risk-banner ul {
+            margin-left: 2rem;
+        }
+
+        .risk-banner li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Attack Flow Diagram */
+        .attack-flow {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 3rem;
+        }
+
+        .flow-diagram {
+            background: linear-gradient(135deg, rgba(100, 255, 218, 0.05), rgba(0, 212, 255, 0.05));
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            margin-top: 1.5rem;
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background-color: rgba(10, 25, 47, 0.5);
+            border-radius: 5px;
+        }
+
+        .flow-number {
+            background-color: var(--accent-color);
+            color: var(--secondary-color);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .flow-content {
+            flex: 1;
+        }
+
+        .flow-label {
+            color: var(--heading-color);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .flow-description {
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+
+        .flow-arrow {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            margin: 0 auto;
+            text-align: center;
+            display: block;
+        }
+
+        /* Findings Section */
+        .findings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .finding-card {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--warning-color);
+        }
+
+        .finding-card h4 {
+            color: var(--warning-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .finding-card ul {
+            margin-left: 1.5rem;
+        }
+
+        .finding-card li {
+            margin-bottom: 0.4rem;
+        }
+
+        /* Zero Trust Framework */
+        .zero-trust-section {
+            background: linear-gradient(135deg, rgba(100, 255, 218, 0.03), rgba(0, 212, 255, 0.03));
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 3rem;
+        }
+
+        .zero-trust-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .zt-principle {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-top: 3px solid var(--accent-color);
+        }
+
+        .zt-principle h4 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .zt-principle ul {
+            margin-left: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Recommendations */
+        .recommendations-section {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 3rem;
+        }
+
+        .rec-category {
+            margin-bottom: 1.5rem;
+        }
+
+        .rec-category h4 {
+            color: var(--accent-color);
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        .rec-category ol {
+            margin-left: 2rem;
+        }
+
+        .rec-category li {
+            margin-bottom: 0.6rem;
+        }
+
+        /* Impact Assessment */
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .impact-card {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-top: 3px solid var(--critical-color);
+            text-align: center;
+        }
+
+        .impact-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .impact-card h4 {
+            color: var(--critical-color);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, rgba(100, 255, 218, 0.1), rgba(0, 212, 255, 0.1));
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .contact-section h3 {
+            color: var(--heading-color);
+            margin-bottom: 1rem;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .contact-item {
+            color: var(--accent-color);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: rgba(10, 25, 47, 0.95);
+            color: var(--text-color);
+        }
+
+        /* ========================================
+           MOBILE-RESPONSIVE MEDIA QUERIES
+           ======================================== */
+
+        /* Tablets and smaller laptops (768px - 1024px) */
+        @media (max-width: 1024px) {
+            .project-header {
+                padding: 7rem 4% 2.5rem;
+            }
+
+            .project-header h1 {
+                font-size: 2.4rem;
+            }
+
+            .content-section {
+                padding: 2rem 4%;
+            }
+
+            .overview-grid,
+            .findings-grid,
+            .zero-trust-grid {
+                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            }
+
+            .impact-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+
+        /* Tablets and larger phones (481px - 768px) */
+        @media (max-width: 768px) {
+            /* Navigation */
+            nav {
+                padding: 1rem 3%;
+            }
+
+            .nav-content {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .back-link {
+                font-size: 0.85rem;
+            }
+
+            /* Project Header */
+            .project-header {
+                padding: 6rem 4% 2rem;
+            }
+
+            .project-header h1 {
+                font-size: 2rem;
+                line-height: 1.2;
+            }
+
+            .project-subtitle {
+                font-size: 1.05rem;
+                margin-bottom: 1.5rem;
+                line-height: 1.5;
+            }
+
+            .badges {
+                gap: 0.6rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .badge {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            /* Content Sections */
+            .content-section {
+                padding: 1.5rem 4%;
+            }
+
+            .content-section h2 {
+                font-size: 1.6rem;
+                margin-bottom: 1.2rem;
+                padding-left: 15px;
+            }
+
+            .content-section h2::before {
+                width: 3px;
+            }
+
+            /* Image Sections */
+            .image-section {
+                padding: 1.5rem;
+                margin-top: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .image-section h3 {
+                font-size: 1.2rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .image-wrapper {
+                padding: 1rem;
+            }
+
+            .image-upload-placeholder {
+                padding: 2rem;
+                min-height: 150px;
+            }
+
+            .image-upload-placeholder .icon {
+                font-size: 2.5rem;
+            }
+
+            /* Overview Grid */
+            .overview-grid,
+            .findings-grid,
+            .zero-trust-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+                margin-bottom: 2rem;
+            }
+
+            .overview-card,
+            .finding-card,
+            .zt-principle {
+                padding: 1.2rem;
+            }
+
+            .overview-card h3,
+            .finding-card h4,
+            .zt-principle h4 {
+                font-size: 1.2rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .overview-card li,
+            .finding-card li,
+            .zt-principle li {
+                padding: 0.4rem 0;
+                padding-left: 1.3rem;
+                font-size: 0.95rem;
+            }
+
+            /* Risk Banner */
+            .risk-banner {
+                padding: 1.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .risk-banner h3 {
+                font-size: 1.3rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .risk-banner ul {
+                margin-left: 1.5rem;
+            }
+
+            .risk-banner li {
+                font-size: 0.95rem;
+                margin-bottom: 0.4rem;
+            }
+
+            /* Attack Flow */
+            .attack-flow {
+                padding: 1.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .flow-diagram {
+                padding: 1.2rem;
+                margin-top: 1.2rem;
+            }
+
+            .flow-step {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0.8rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .flow-number {
+                margin-bottom: 0.5rem;
+                margin-right: 0;
+            }
+
+            .flow-label {
+                font-size: 1rem;
+            }
+
+            .flow-description {
+                font-size: 0.85rem;
+            }
+
+            .flow-arrow {
+                transform: rotate(90deg);
+                margin: 0.5rem 0;
+                align-self: center;
+            }
+
+            /* Impact Grid */
+            .impact-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .impact-card {
+                padding: 1.2rem;
+            }
+
+            .impact-icon {
+                font-size: 2rem;
+            }
+
+            .impact-card h4 {
+                font-size: 1rem;
+            }
+
+            .impact-card p {
+                font-size: 0.85rem;
+            }
+
+            /* Recommendations */
+            .recommendations-section {
+                padding: 1.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .rec-category h4 {
+                font-size: 1.1rem;
+            }
+
+            .rec-category ol {
+                margin-left: 1.5rem;
+            }
+
+            .rec-category li {
+                font-size: 0.9rem;
+                margin-bottom: 0.5rem;
+            }
+
+            /* Contact Section */
+            .contact-section {
+                padding: 1.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            /* Footer */
+            footer {
+                padding: 1.5rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Mobile phones (320px - 480px) */
+        @media (max-width: 480px) {
+            /* Navigation */
+            nav {
+                padding: 0.8rem 4%;
+            }
+
+            .back-link {
+                font-size: 0.8rem;
+            }
+
+            /* Project Header */
+            .project-header {
+                padding: 5rem 5% 1.5rem;
+            }
+
+            .project-header h1 {
+                font-size: 1.6rem;
+                line-height: 1.3;
+                margin-bottom: 0.8rem;
+            }
+
+            .project-subtitle {
+                font-size: 0.95rem;
+                margin-bottom: 1.2rem;
+                line-height: 1.5;
+            }
+
+            .badges {
+                gap: 0.5rem;
+                margin-bottom: 1.2rem;
+            }
+
+            .badge {
+                font-size: 0.75rem;
+                padding: 0.35rem 0.7rem;
+            }
+
+            /* Content Sections */
+            .content-section {
+                padding: 1.2rem 5%;
+            }
+
+            .content-section h2 {
+                font-size: 1.4rem;
+                margin-bottom: 1rem;
+                padding-left: 12px;
+            }
+
+            .content-section h2::before {
+                width: 3px;
+                height: 70%;
+            }
+
+            /* Image Sections */
+            .image-section {
+                padding: 1.2rem;
+                margin-top: 1.2rem;
+                margin-bottom: 1.2rem;
+            }
+
+            .image-section h3 {
+                font-size: 1.1rem;
+                margin-bottom: 0.6rem;
+            }
+
+            .image-wrapper {
+                padding: 0.8rem;
+            }
+
+            .image-caption {
+                font-size: 0.85rem;
+            }
+
+            .image-upload-placeholder {
+                padding: 1.5rem;
+                min-height: 120px;
+            }
+
+            .image-upload-placeholder .icon {
+                font-size: 2rem;
+            }
+
+            .image-upload-placeholder p {
+                font-size: 0.85rem;
+            }
+
+            /* Overview Grid */
+            .overview-grid,
+            .findings-grid,
+            .zero-trust-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .overview-card,
+            .finding-card,
+            .zt-principle {
+                padding: 1rem;
+            }
+
+            .overview-card h3,
+            .finding-card h4,
+            .zt-principle h4 {
+                font-size: 1.1rem;
+                margin-bottom: 0.6rem;
+            }
+
+            .overview-card li,
+            .finding-card li,
+            .zt-principle li {
+                padding: 0.3rem 0;
+                padding-left: 1.2rem;
+                font-size: 0.85rem;
+                line-height: 1.4;
+            }
+
+            /* Risk Banner */
+            .risk-banner {
+                padding: 1.2rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .risk-banner h3 {
+                font-size: 1.15rem;
+                margin-bottom: 0.6rem;
+            }
+
+            .risk-banner p {
+                font-size: 0.85rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .risk-banner ul {
+                margin-left: 1.2rem;
+            }
+
+            .risk-banner li {
+                font-size: 0.85rem;
+                margin-bottom: 0.3rem;
+                line-height: 1.4;
+            }
+
+            /* Attack Flow */
+            .attack-flow {
+                padding: 1.2rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .attack-flow > p {
+                font-size: 0.9rem;
+                margin-bottom: 1rem;
+            }
+
+            .flow-diagram {
+                padding: 1rem;
+                margin-top: 1rem;
+            }
+
+            .flow-step {
+                padding: 0.6rem;
+                margin-bottom: 0.6rem;
+            }
+
+            .flow-number {
+                width: 30px;
+                height: 30px;
+                font-size: 0.9rem;
+            }
+
+            .flow-label {
+                font-size: 0.9rem;
+            }
+
+            .flow-description {
+                font-size: 0.8rem;
+                line-height: 1.4;
+            }
+
+            .flow-arrow {
+                font-size: 1.2rem;
+                margin: 0.4rem 0;
+            }
+
+            /* Impact Grid */
+            .impact-grid {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .impact-card {
+                padding: 1rem;
+            }
+
+            .impact-icon {
+                font-size: 1.8rem;
+            }
+
+            .impact-card h4 {
+                font-size: 0.95rem;
+            }
+
+            .impact-card p {
+                font-size: 0.8rem;
+                line-height: 1.4;
+            }
+
+            /* Zero Trust Section */
+            .zero-trust-section {
+                padding: 1.2rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .zero-trust-section > p {
+                font-size: 0.9rem;
+                margin-bottom: 1rem;
+            }
+
+            .zt-principle ul {
+                margin-left: 1.2rem;
+                font-size: 0.85rem;
+            }
+
+            .zt-principle li {
+                margin-bottom: 0.3rem;
+                line-height: 1.4;
+            }
+
+            /* Recommendations */
+            .recommendations-section {
+                padding: 1.2rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .rec-category {
+                margin-bottom: 1.2rem;
+            }
+
+            .rec-category h4 {
+                font-size: 1rem;
+                margin-bottom: 0.6rem;
+            }
+
+            .rec-category ol {
+                margin-left: 1.2rem;
+                padding-left: 0.5rem;
+            }
+
+            .rec-category li {
+                font-size: 0.85rem;
+                margin-bottom: 0.4rem;
+                line-height: 1.4;
+            }
+
+            /* Contact Section */
+            .contact-section {
+                padding: 1.2rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .contact-section h3 {
+                font-size: 1.15rem;
+            }
+
+            .contact-item {
+                font-size: 0.85rem;
+            }
+
+            /* Footer */
+            footer {
+                padding: 1.2rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Extra small phones (max 360px) */
+        @media (max-width: 360px) {
+            .project-header h1 {
+                font-size: 1.4rem;
+            }
+
+            .project-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .content-section h2 {
+                font-size: 1.3rem;
+            }
+
+            .overview-card h3,
+            .finding-card h4 {
+                font-size: 1rem;
+            }
+
+            .badge {
+                font-size: 0.7rem;
+                padding: 0.3rem 0.6rem;
+            }
+
+            .flow-number {
+                width: 28px;
+                height: 28px;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Landscape orientation on phones */
+        @media (max-height: 600px) and (orientation: landscape) {
+            .project-header {
+                padding: 4rem 5% 1.5rem;
+            }
+
+            .project-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .project-subtitle {
+                font-size: 0.95rem;
+            }
+
+            .content-section {
+                padding: 1.5rem 5%;
+            }
+
+            nav {
+                padding: 0.6rem 3%;
+            }
+
+            .flow-step {
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .flow-arrow {
+                transform: rotate(0deg);
+                margin: 0 0.5rem;
+            }
+
+            .flow-number {
+                margin-right: 1rem;
+                margin-bottom: 0;
+            }
+        }
+
+        /* Fix for notched phones (iPhone X and similar) */
+        @supports (padding: max(0px)) {
+            nav {
+                padding-left: max(1rem, env(safe-area-inset-left));
+                padding-right: max(1rem, env(safe-area-inset-right));
+            }
+
+            .project-header,
+            .content-section {
+                padding-left: max(5%, env(safe-area-inset-left));
+                padding-right: max(5%, env(safe-area-inset-right));
+            }
+        }
+
+        /* Better touch targets and readability */
+        @media (max-width: 768px) {
+            body {
+                font-size: 16px; /* Prevents zoom on mobile inputs */
+            }
+
+            /* Better tap targets */
+            .back-link,
+            .badge {
+                min-height: 36px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            /* Improve list readability */
+            ul {
+                line-height: 1.6;
+            }
+
+            /* Better spacing for cards */
+            .overview-card,
+            .finding-card,
+            .zt-principle,
+            .impact-card {
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-content">
+            <a href="index.html" class="back-link">← Back to Portfolio</a>
+        </div>
+    </nav>
+
+    <!-- Project Header -->
+    <div class="project-header">
+        <h1>ASUS Zenbo Security Assessment: Zero Trust Approach to IoT Vulnerability</h1>
+        <p class="project-subtitle">
+            Follow-on penetration testing research on the ASUS Zenbo robot, demonstrating critical vulnerabilities in legacy IoT devices and proposing Zero Trust architectural solutions to prevent Man-in-the-Middle attacks and unauthorized remote access.
+        </p>
+        <div class="badges">
+            <span class="badge critical">CRITICAL RISK</span>
+            <span class="badge">Penetration Testing</span>
+            <span class="badge">IoT Security</span>
+            <span class="badge">Zero Trust Architecture</span>
+            <span class="badge">Man-in-the-Middle Attack</span>
+            <span class="badge">Legacy OS Exploitation</span>
+            <span class="badge">Network Security</span>
+        </div>
+    </div>
+
+    <!-- Project Overview -->
+    <div class="content-section">
+        <h2>Project Overview</h2>
+        <div class="overview-grid">
+            <div class="overview-card">
+                <h3>My Role & Contribution</h3>
+                <ul>
+                    <li>Follow-on penetration testing researcher</li>
+                    <li>Validated remote code execution exploit chain</li>
+                    <li>Conducted post-exploitation enumeration</li>
+                    <li>Mapped findings to NIST Zero Trust framework</li>
+                    <li>Developed mitigation strategies</li>
+                    <li>Presented research via academic poster</li>
+                </ul>
+            </div>
+
+            <div class="overview-card">
+                <h3>Research Context</h3>
+                <ul>
+                    <li>Conducted in CCR Lab at University at Albany</li>
+                    <li>Supervised by Dr. C. Ariel Pinto</li>
+                    <li>Extended work by Arka Prabha Das (August 2025)</li>
+                    <li>Focus: Legacy IoT security vulnerabilities</li>
+                    <li>Framework: NIST SP 800-207 Zero Trust</li>
+                </ul>
+            </div>
+
+            <div class="overview-card">
+                <h3>Target Device</h3>
+                <ul>
+                    <li>Device: ASUS Zenbo Robot</li>
+                    <li>OS: Android 6.0.1 (End-of-Life)</li>
+                    <li>Status: No security patches available</li>
+                    <li>Vulnerability: Insecure update mechanism</li>
+                    <li>Attack Vector: Man-in-the-Middle</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Critical Risk Banner -->
+    <div class="content-section">
+        <div class="risk-banner">
+            <h3>⚠️ CRITICAL VULNERABILITY CONFIRMED</h3>
+            <p style="margin-bottom: 1rem;">A socially engineered malicious APK delivered under Man-in-the-Middle conditions can establish remote control of the ASUS Zenbo robot. This vulnerability enables:</p>
+            <ul>
+                <li><strong>Privacy Invasion:</strong> Monitor microphone and camera for surveillance</li>
+                <li><strong>Data Exfiltration:</strong> Access stored personal and system data</li>
+                <li><strong>Device Manipulation:</strong> Control robot movements and functions</li>
+                <li><strong>Network Compromise:</strong> Use device as pivot point for lateral attacks</li>
+                <li><strong>Persistent Access:</strong> Establish backdoors for long-term control</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Background -->
+    <div class="content-section">
+        <h2>Background & Motivation</h2>
+        <div class="overview-grid">
+            <div class="overview-card">
+                <h3>The Problem</h3>
+                <ul>
+                    <li>Legacy IoT devices lack secure update mechanisms</li>
+                    <li>End-of-Life operating systems remain unpatched</li>
+                    <li>Weak network authentication protocols</li>
+                    <li>Growing attack surface in connected homes</li>
+                </ul>
+            </div>
+
+            <div class="overview-card">
+                <h3>Research Question</h3>
+                <p style="color: var(--heading-color); font-weight: 600; margin-bottom: 1rem;">
+                    How can insecure update delivery and network misconfigurations in IoT devices be mitigated through Zero Trust principles?
+                </p>
+            </div>
+
+            <div class="overview-card">
+                <h3>Why This Matters</h3>
+                <ul>
+                    <li>IoT devices in sensitive environments (homes, healthcare, education)</li>
+                    <li>Privacy risks from camera/microphone access</li>
+                    <li>Physical safety concerns from robot manipulation</li>
+                    <li>Network security breach potential</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Image Section for Background -->
+        <div class="image-section">
+            <h3>Research Poster Presentation</h3>
+            <div class="image-container">
+                <div class="image-wrapper">
+                    <div class="image-upload-placeholder">
+                        <div class="icon">🖼️</div>
+                        <p><strong>Upload your poster image here</strong></p>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">Replace this placeholder with your research poster image</p>
+                    </div>
+                    <p class="image-caption">Academic poster presentation on ASUS Zenbo security assessment and Zero Trust framework application</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Attack Methodology -->
+    <div class="content-section">
+        <h2>Attack Methodology: The Man-in-the-Middle Chain</h2>
+        <div class="attack-flow">
+            <p style="margin-bottom: 1.5rem;">
+                Complete exploitation flow from reconnaissance to post-exploitation access:
+            </p>
+            <div class="flow-diagram">
+                <div class="flow-step">
+                    <div class="flow-number">1</div>
+                    <div class="flow-content">
+                        <span class="flow-label">Reconnaissance & Network Scanning</span>
+                        <span class="flow-description">Used netdiscover to locate Zenbo (172.16.42.145), nmap for port enumeration, Wireshark to identify unauthenticated ARP traffic vulnerability</span>
+                    </div>
+                </div>
+                
+                <div class="flow-arrow">↓</div>
+                
+                <div class="flow-step">
+                    <div class="flow-number">2</div>
+                    <div class="flow-content">
+                        <span class="flow-label">Payload Creation</span>
+                        <span class="flow-description">Generated malicious Update.apk using msfvenom (android/meterpreter/reverse_tcp) to appear as legitimate system update</span>
+                    </div>
+                </div>
+                
+                <div class="flow-arrow">↓</div>
+                
+                <div class="flow-step">
+                    <div class="flow-number">3</div>
+                    <div class="flow-content">
+                        <span class="flow-label">Attack Infrastructure Setup</span>
+                        <span class="flow-description">Hosted APK on Python HTTP server, configured Metasploit multi/handler listener for reverse connection (172.16.42.231:4444)</span>
+                    </div>
+                </div>
+                
+                <div class="flow-arrow">↓</div>
+                
+                <div class="flow-step">
+                    <div class="flow-number">4</div>
+                    <div class="flow-content">
+                        <span class="flow-label">Man-in-the-Middle Positioning</span>
+                        <span class="flow-description">Exploited unauthenticated ARP protocol via spoofing on attacker-controlled open WiFi ("Open_Pineapple" SSID)</span>
+                    </div>
+                </div>
+                
+                <div class="flow-arrow">↓</div>
+                
+                <div class="flow-step">
+                    <div class="flow-number">5</div>
+                    <div class="flow-content">
+                        <span class="flow-label">Exploitation & Delivery</span>
+                        <span class="flow-description">Intercepted device communications, delivered Update.apk via MitM position, device downloaded and executed malicious package</span>
+                    </div>
+                </div>
+                
+                <div class="flow-arrow">↓</div>
+                
+                <div class="flow-step">
+                    <div class="flow-number">6</div>
+                    <div class="flow-content">
+                        <span class="flow-label">Post-Exploitation Access</span>
+                        <span class="flow-description">Established reverse Meterpreter session, gained interactive shell with system enumeration capabilities, identified privilege escalation paths</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Key Findings -->
+    <div class="content-section">
+        <h2>Key Findings</h2>
+        <div class="findings-grid">
+            <div class="finding-card">
+                <h4>Confirmed Vulnerabilities</h4>
+                <ul>
+                    <li>Remote code execution via social engineering + MitM</li>
+                    <li>Unauthenticated ARP traffic enabling network interception</li>
+                    <li>Weak update verification allowing unsigned APK installation</li>
+                    <li>Android 6.0.1 with unpatched critical CVEs (Stagefright)</li>
+                    <li>No cryptographic signing of update packages</li>
+                </ul>
+            </div>
+
+            <div class="finding-card">
+                <h4>Access Achieved</h4>
+                <ul>
+                    <li>Interactive remote shell (untrusted app user context)</li>
+                    <li>Full system binary enumeration (/system/bin)</li>
+                    <li>Installed package discovery (/system/app)</li>
+                    <li>Access to robot-specific services (TTS, motion, camera)</li>
+                    <li>Foundation for privilege escalation attempts</li>
+                </ul>
+            </div>
+
+            <div class="finding-card">
+                <h4>System Components Exposed</h4>
+                <ul>
+                    <li>FWUpdateR200 (firmware update service)</li>
+                    <li>ZenboManagement (device management)</li>
+                    <li>TtsService (text-to-speech)</li>
+                    <li>RobotMotionService (movement control)</li>
+                    <li>UpdateLauncher (update mechanism)</li>
+                    <li>ZenboRemoteControl (remote access)</li>
+                </ul>
+            </div>
+
+            <div class="finding-card">
+                <h4>Observed Limitations</h4>
+                <ul>
+                    <li>Some Meterpreter upload primitives unavailable</li>
+                    <li>Android permission layers blocked certain high-level service calls</li>
+                    <li>SecurityException when attempting direct TTS manipulation</li>
+                    <li>However: Alternative attack paths remain viable</li>
+                </ul>
+            </div>
+
+            <div class="finding-card">
+                <h4>Attack Prerequisites</h4>
+                <ul>
+                    <li>"Allow apps from unknown sources" must be disabled (enabled prevents attack)</li>
+                    <li>Device must connect to attacker-controlled open WiFi</li>
+                    <li>User must accept/install the malicious update</li>
+                    <li>Attack fails on strongly protected networks</li>
+                </ul>
+            </div>
+
+            <div class="finding-card">
+                <h4>Comparison to Original Assessment</h4>
+                <ul>
+                    <li>Successfully reproduced core exploit path</li>
+                    <li>Confirmed remote shell establishment</li>
+                    <li>Differed: Initial session ran as untrusted app (not immediate root)</li>
+                    <li>Despite privilege difference, significant attack surface remains</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Image Section for Key Findings -->
+        <div class="image-section">
+            <h3>Exploitation Evidence</h3>
+            <div class="image-container">
+                <div class="image-wrapper">
+                    <div class="image-upload-placeholder">
+                        <div class="icon">💻</div>
+                        <p><strong>Upload screenshot evidence here</strong></p>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">Include terminal output, Metasploit session, or system enumeration results</p>
+                    </div>
+                    <p class="image-caption">Terminal output showing successful Meterpreter session establishment and system enumeration</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Impact Assessment -->
+    <div class="content-section">
+        <h2>Impact Assessment</h2>
+        <div class="impact-grid">
+            <div class="impact-card">
+                <div class="impact-icon">📹</div>
+                <h4>Privacy Violation</h4>
+                <p>Persistent surveillance via camera and microphone monitoring</p>
+            </div>
+
+            <div class="impact-card">
+                <div class="impact-icon">💾</div>
+                <h4>Data Theft</h4>
+                <p>Exfiltration of stored personal and system data</p>
+            </div>
+
+            <div class="impact-card">
+                <div class="impact-icon">🤖</div>
+                <h4>Physical Control</h4>
+                <p>Manipulation of robot movements and functions for malicious purposes</p>
+            </div>
+
+            <div class="impact-card">
+                <div class="impact-icon">🌐</div>
+                <h4>Network Pivot</h4>
+                <p>Compromised device as entry point for lateral network attacks</p>
+            </div>
+
+            <div class="impact-card">
+                <div class="impact-icon">🔒</div>
+                <h4>Persistent Access</h4>
+                <p>Long-term backdoor establishment for continued exploitation</p>
+            </div>
+
+            <div class="impact-card">
+                <div class="impact-icon">⚠️</div>
+                <h4>Safety Risks</h4>
+                <p>Physical safety concerns in healthcare or educational settings</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Zero Trust Framework -->
+    <div class="content-section">
+        <h2>Zero Trust Mitigation Framework (NIST SP 800-207)</h2>
+        <div class="zero-trust-section">
+            <p style="margin-bottom: 1.5rem; color: var(--heading-color);">
+                Applying Zero Trust principles to prevent exploitation and minimize attack surface:
+            </p>
+            <div class="zero-trust-grid">
+                <div class="zt-principle">
+                    <h4>1. Network Micro-Segmentation</h4>
+                    <ul>
+                        <li>Isolate IoT devices on dedicated firewalled VLAN</li>
+                        <li>Implement strict outbound traffic rules</li>
+                        <li>Deploy DHCP snooping and Dynamic ARP Inspection</li>
+                        <li>Enforce WPA2/WPA3-only wireless access</li>
+                        <li>Block connection to untrusted open SSIDs</li>
+                    </ul>
+                </div>
+
+                <div class="zt-principle">
+                    <h4>2. Least Privilege Access</h4>
+                    <ul>
+                        <li>Disable "Allow apps from unknown sources"</li>
+                        <li>Enforce signed-only update policies via MDM</li>
+                        <li>Disable or authenticate ADB over network</li>
+                        <li>Restrict exposed debug interfaces</li>
+                        <li>Implement application whitelisting</li>
+                    </ul>
+                </div>
+
+                <div class="zt-principle">
+                    <h4>3. Continuous Verification</h4>
+                    <ul>
+                        <li>Monitor for tampered or unauthorized installations</li>
+                        <li>Implement cryptographic update signature verification</li>
+                        <li>Deploy network behavior anomaly detection</li>
+                        <li>Conduct regular security assessments</li>
+                        <li>Log all configuration changes</li>
+                    </ul>
+                </div>
+
+                <div class="zt-principle">
+                    <h4>4. Never Trust, Always Verify</h4>
+                    <ul>
+                        <li>Assume breach mentality for legacy devices</li>
+                        <li>Validate every update package cryptographically</li>
+                        <li>Authenticate all network-level communications</li>
+                        <li>Segment even within "trusted" internal networks</li>
+                        <li>Verify device identity before network access</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recommendations -->
+    <div class="content-section">
+        <h2>Recommendations</h2>
+        <div class="recommendations-section">
+            <div class="rec-category">
+                <h4>Immediate Actions (Deploy Now)</h4>
+                <ol>
+                    <li><strong>Network Isolation:</strong> Deploy IoT devices on segregated VLAN with firewall rules preventing connection to untrusted networks</li>
+                    <li><strong>Disable Sideloading:</strong> Turn off installation from unknown sources via hardware switch or MDM policy</li>
+                    <li><strong>MitM Protection:</strong> Implement ARP inspection, port security, and DHCP snooping on all network segments</li>
+                    <li><strong>User Training:</strong> Educate users on risks of untrusted WiFi networks and unverified system updates</li>
+                </ol>
+            </div>
+
+            <div class="rec-category">
+                <h4>Short-Term Strategy (1-3 Months)</h4>
+                <ol>
+                    <li><strong>Update Authentication:</strong> Implement cryptographic signature verification for all update packages</li>
+                    <li><strong>Service Hardening:</strong> Disable unnecessary services and restrict ADB access</li>
+                    <li><strong>Threat Hunt:</strong> Conduct forensic analysis for compromised or tampered devices</li>
+                    <li><strong>Monitoring:</strong> Deploy network behavior analytics to detect anomalous traffic patterns</li>
+                </ol>
+            </div>
+
+            <div class="rec-category">
+                <h4>Long-Term Strategy (3-12 Months)</h4>
+                <ol>
+                    <li><strong>Device Lifecycle Management:</strong> Plan EOL device replacement with security-maintained alternatives</li>
+                    <li><strong>Zero Trust Architecture:</strong> Implement comprehensive ZTA across all IoT infrastructure</li>
+                    <li><strong>Vendor Engagement:</strong> Advocate for manufacturer commitment to long-term security updates</li>
+                    <li><strong>Secure-by-Design:</strong> Establish procurement policies requiring security guarantees from vendors</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact & References -->
+    <div class="content-section">
+        <div class="contact-section">
+            <h3>Project Team & Contact</h3>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <strong>Angelo Pollari</strong><br>
+                    CEHC<br>
+                    Apollari@albany.edu
+                </div>
+                <div class="contact-item">
+                    <strong>Dr. C. Ariel Pinto</strong><br>
+                    Research Supervisor<br>
+                    cpinto2@albany.edu
+                </div>
+            </div>
+            <div style="margin-top: 2rem;">
+                <h4 style="color: var(--heading-color); margin-bottom: 1rem;">Key References</h4>
+                <ul style="list-style: none; color: var(--text-color);">
+                    <li>• Das, A.P. (2025). <em>Penetration Test Report: Security Assessment of ASUS Zenbo Robot</em></li>
+                    <li>• Pollari, A.J. (2025). <em>Penetration Test — Follow-on Findings</em></li>
+                    <li>• NIST SP 800-207. <em>Zero Trust Architecture Framework</em></li>
+                    <li>• Android Security Bulletins (2024-2025) — Legacy OS vulnerabilities and patching guidance</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Angelo Pollari | CCR Lab, University at Albany</p>
+        <p>Built with passion for cybersecurity research</p>
+    </footer>
+</body>
+</html>
